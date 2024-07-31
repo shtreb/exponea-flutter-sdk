@@ -1,42 +1,18 @@
-buildscript {
-    ext {
-        minSdkVersion = 21
-        compileSdkVersion = 33
-        targetSdkVersion = 33
-
-        androidGradlePluginVersion = '7.1.2'
-        kotlinVersion = '1.7.10'
-        multidexVersion = '2.0.1'
-        firebaseVersion = '23.0.0'
-        agconnectVersion = '1.5.2.300'
-        hmsVersion = '6.1.0.300'
-        googleServicesVersion = '4.3.10'
-    }
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://developer.huawei.com/repo/' }
-    }
-
-    dependencies {
-        classpath "com.android.tools.build:gradle:$androidGradlePluginVersion"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "com.google.gms:google-services:$googleServicesVersion"
-        classpath "com.huawei.agconnect:agcp:$agconnectVersion"
-    }
-}
-
 allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://developer.huawei.com/repo/' }
+        maven {url 'https://developer.huawei.com/repo/'}
     }
 }
 
 rootProject.buildDir = '../build'
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+subprojects {
     project.evaluationDependsOn(':app')
 }
 

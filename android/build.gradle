@@ -2,9 +2,10 @@ group 'com.exponea'
 version '1.6.0-SNAPSHOT'
 
 buildscript {
+
     ext {
-        androidGradlePluginVersion = '4.1.0'
-        kotlinVersion = '1.5.30'
+        androidGradlePluginVersion = '8.1.4'
+        kotlinVersion = '1.7.10'
 
         exponeaSdkVersion = '3.11.2'
         gsonVersion = '2.8.6'
@@ -32,14 +33,25 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.exponea'
+    }
+
+    compileSdkVersion 33
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -47,14 +59,14 @@ android {
     defaultConfig {
         minSdkVersion 21
     }
-}
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "com.exponea.sdk:sdk:$exponeaSdkVersion"
-    implementation "com.google.code.gson:gson:$gsonVersion"
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    dependencies {
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+        implementation "com.exponea.sdk:sdk:$exponeaSdkVersion"
+        implementation "com.google.code.gson:gson:$gsonVersion"
+        implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+        implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+        implementation 'androidx.appcompat:appcompat:1.2.0'
+    }
 }
